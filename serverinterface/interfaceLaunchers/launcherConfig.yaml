@@ -1,0 +1,29 @@
+settings:
+  #system: "windows"
+  webLauncher: "firefox"
+  sshLauncher: "windowsTerminal"
+config:
+  firefox:
+    path: "C:/Program Files/Mozilla Firefox/firefox.exe"
+    args: "--new-window"
+  chrome:
+    path: "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe"
+    args: "--new-window"
+  edge:
+    path: "C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe"
+    args: "--new-window"
+  ie:
+    path: "C:/Program Files/Internet Explorer/iexplore.exe"
+    args: "--new-window"
+  opera:
+    path: "C:/Program Files/Opera/launcher.exe"
+    args: "--new-window"
+  safari:
+    path: "C:/Program Files/Safari/Safari.exe"
+    args: "--new-window"
+  vivaldi:
+    path: "C:/Program Files/Vivaldi/Application/vivaldi.exe"
+    args: "--new-window"
+  windowsTerminal:
+    path: "wt"
+    args: "" # -d . is the default directory

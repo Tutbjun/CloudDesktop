@@ -1,0 +1,41 @@
+defaultinterfaces:
+  pikvm:
+    web:
+      local:
+        launcher: "web.py"
+        args: ["192.168.0.83", "443"]
+      remote:
+        launcher: "web.py"
+        args: ["85.191.70.197", "8009"]
+    ssh:
+      local:
+        launcher: "ssh.py"
+        args: ["192.168.0.83","none","root"]
+      remote:
+        launcher: "ssh.py"
+        args: ["85.191.70.197","8009","root"]
+  host:
+    web:
+      local:
+        launcher: "web.py"
+        args: ["192.168.0.47", "8006"]
+      remote:
+        launcher: "web.py"
+        args: ["85.191.70.197", "8006"]
+    ssh:
+      local:
+        launcher: "ssh.py"
+        args: ["192.168.0.47", "22","root"]
+      remote:
+        launcher: "ssh.py"
+        args: ["85.191.70.197","8007","root"]
+  ubu-k80:
+    ssh:
+      local:
+        launcher: "ssh.py"
+        args: ["192.168.0.72","8008","root"]
+  win11-1060:
+    parsec:
+      remote:
+        launcher: "parsec.py"
+        args: ["win11-1060"]

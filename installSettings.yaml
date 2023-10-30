@@ -1,0 +1,24 @@
+SetupType: #outcomment all except the one you want to use
+  SetupAsClient: "Client"  # Client computer for interfacing with server
+  SetupAsServer: "Server"  # Compute server for interfacing with clients
+  SetupAsWOL: "WOLServer"   # Server to wake compute server from sleep
+
+WOLServer:
+  # WOL settings
+  TargetNames: ["ComputeServer0"]
+  TargetIPs: [192.168.0.1]
+  TargetMACs: [00:00:00:00:00:00]
+  TargetPorts: [9]
+  DoWakeOnLAN: [true]
+  DoCustomScript: [false]
+  CustomScriptPath: [""]
+  PortForwarding: true
+  PortForwardingRules:
+    - Name: "WOLServer0"
+      Protocol: "TCP"
+      LocalPort: "22"
+      RemotePort: "22"
+  SetStaticIP: true
+  StaticIP: "192.168.0.110"
+    
+
