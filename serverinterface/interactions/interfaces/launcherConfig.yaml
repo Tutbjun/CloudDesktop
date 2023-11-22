@@ -7,8 +7,14 @@ config:
 #    path: "C:/Program Files/Mozilla Firefox/firefox.exe"
 #    args: "--new-window"
   firefox:
+<<<<<<< HEAD:serverinterface/interfaceLaunchers/launcherConfig.yaml
     path: firefox
     args: "" # -new-window is the default
+=======
+    #path: "C:/Program Files/Mozilla Firefox/firefox.exe"
+    path: "firefox"
+    args: "--new-window"
+>>>>>>> e348064598b0e260f852bfc3e8c86b55c8c49dcb:serverinterface/interactions/interfaces/launcherConfig.yaml
   chrome:
     path: "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe"
     args: "--new-window"
@@ -30,3 +36,9 @@ config:
   windowsTerminal:
     path: "wt"
     args: "" # -d . is the default directory
+<<<<<<< HEAD:serverinterface/interfaceLaunchers/launcherConfig.yaml
+=======
+  wslTerminal:
+    path: "wsl"
+    args: ""
+>>>>>>> e348064598b0e260f852bfc3e8c86b55c8c49dcb:serverinterface/interactions/interfaces/launcherConfig.yaml
