@@ -1,0 +1,19 @@
+[Desktop Entry]
+Comment[en_US]=
+Comment=
+Exec=/home/t/git/CloudDesktop/serverinterface/exec.sh
+GenericName[en_US]=
+GenericName=
+Icon=/home/t/git/CloudDesktop/serverinterface/InterfaceIcon.ico
+MimeType=
+Name[en_US]=ServerInterface
+Name=ServerInterface
+Path=/home/t/git/CloudDesktop/serverinterface
+StartupNotify=true
+Terminal=false
+TerminalOptions=
+Type=Application
+X-DBUS-ServiceName=
+X-DBUS-StartupType=
+X-KDE-SubstituteUID=false
+X-KDE-Username=

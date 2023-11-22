@@ -3,9 +3,12 @@ settings:
   webLauncher: "firefox"
   sshLauncher: "windowsTerminal"
 config:
+#  firefox:
+#    path: "C:/Program Files/Mozilla Firefox/firefox.exe"
+#    args: "--new-window"
   firefox:
-    path: "C:/Program Files/Mozilla Firefox/firefox.exe"
-    args: "--new-window"
+    path: firefox
+    args: "" # -new-window is the default
   chrome:
     path: "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe"
     args: "--new-window"
