@@ -5,7 +5,7 @@ import os
 
 flags = sys.argv[1:]
 
-with open(os.path.join("interfaceLaunchers",'launcherConfig.yaml')) as f:
+with open(os.path.join("interactions/interfaces",'launcherConfig.yaml')) as f:
     config = yaml.load(f, Loader=yaml.FullLoader)
     #print config
     for key, value in config.items():

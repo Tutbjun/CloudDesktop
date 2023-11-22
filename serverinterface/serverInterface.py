@@ -5,11 +5,47 @@ import os
 import subprocess
 #import a config file with pikvm ip and port, and the server ip and port and the virtual machine ip and port
 import yaml
+from getpass import getpass
+#from cryptography.fernet import Fernet
+#import numpy as np
+import time
+#import rsa
+import hashlib
+import sys
+
+verbose = False
+
+#sanitycheck password
+args = sys.argv[1:]
+if len(args) > 0:
+    if args[0].lower() != "none":
+        passwd = args[0]
+    else:
+        passwd = None
+else:
+    passwd = None
+if passwd is None: passwd = getpass("Enter password: ")
+
+hash_object = hashlib.sha256()
+hash_object.update(passwd.encode())
+encPasswd = hash_object.hexdigest().encode()
+with open("passwrdref.txt", "rb") as f:
+    refPasswds = f.readlines()
+refPasswds = [passwd.replace(b"\n", b"") for passwd in refPasswds]
+
+if encPasswd not in refPasswds:
+    print("Wrong password")
+    time.sleep(5)
+    raise Exception("Wrong password")
+
+
+
+
 with open('config.yaml') as f:
     config = yaml.load(f, Loader=yaml.FullLoader)
     #print config
     for key, value in config.items():
-        print(key, value)
+        if verbose: print(key, value)
 
 class ServerInterface(tkinter.Tk):
     def __init__(self, config):
@@ -21,8 +57,11 @@ class ServerInterface(tkinter.Tk):
     
     def launch(self, launcher, args):
         #launch a program with the given arguments
-        subprocess.Popen(["python", os.path.join("interfaceLaunchers",launcher), *args])
-        exit()
+        pop = subprocess.Popen(["python3", os.path.join("interactions/interfaces",launcher), *args])
+        pop.wait()
+        if not "web" in launcher:
+            exit()
+        #exit()
 
     def showMenu(self, frame, data, layer=0, buttonNmbr=1, buttonCnt=1):
         #clear the current buttons
@@ -72,6 +111,8 @@ class ServerInterface(tkinter.Tk):
                 button.pack(side="top", fill="both", expand=True)
                 frame.interfaceButtons.append(button)
             else:
+                #password passon
+                value['args'].append(f"password {passwd}")
                 self.subButtonAttributes.append((value["launcher"], value["args"]))
                 i = len(self.subButtonAttributes)-1
                 button = ttk.Button(frame, text=key, command=lambda index=i: self.launch(*self.subButtonAttributes[index]))

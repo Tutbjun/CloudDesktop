@@ -4,7 +4,8 @@ settings:
   sshLauncher: "windowsTerminal"
 config:
   firefox:
-    path: "C:/Program Files/Mozilla Firefox/firefox.exe"
+    #path: "C:/Program Files/Mozilla Firefox/firefox.exe"
+    path: "firefox"
     args: "--new-window"
   chrome:
     path: "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe"
@@ -27,3 +28,6 @@ config:
   windowsTerminal:
     path: "wt"
     args: "" # -d . is the default directory
+  wslTerminal:
+    path: "wsl"
+    args: ""

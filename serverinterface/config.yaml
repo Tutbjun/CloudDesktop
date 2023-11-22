@@ -13,7 +13,21 @@ defaultinterfaces:
         args: ["192.168.0.83","none","root"]
       remote:
         launcher: "ssh.py"
-        args: ["85.191.70.197","8009","root"]
+        args: ["85.191.70.197","8011","root"]
+    command:
+      remote:
+        settel_0_on:
+          launcher: "start_server.py"
+          args: ["0_on", "1"]
+        settel_0_off:
+          launcher: "start_server.py"
+          args: ["0_off", "1"]
+        settel_1_on:
+          launcher: "start_server.py"
+          args: ["1_on", "1"]
+        settel_1_off:
+          launcher: "start_server.py"
+          args: ["1_off", "1"]
   host:
     web:
       local:
@@ -29,11 +43,28 @@ defaultinterfaces:
       remote:
         launcher: "ssh.py"
         args: ["85.191.70.197","8007","root"]
+    command:
+      remote:
+        ubuntu-compute_start:
+          launcher: "start_vm.py"
+          args: ["start", "100"]
+        ubuntu-compute_stop:
+          launcher: "start_vm.py"
+          args: ["stop", "100"]
+        Win11-generic_start:
+          launcher: "start_vm.py"
+          args: ["start", "101"]
+        Win11-generic_stop:
+          launcher: "start_vm.py"
+          args: ["stop", "101"]
   ubu-k80:
     ssh:
       local:
         launcher: "ssh.py"
-        args: ["192.168.0.72","8008","root"]
+        args: ["192.168.0.76","22","root"]
+      remote:
+        launcher: "ssh.py"
+        args: ["85.191.70.197","8010","root"]
   win11-1060:
     parsec:
       remote:
