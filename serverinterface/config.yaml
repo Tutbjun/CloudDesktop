@@ -61,10 +61,10 @@ defaultinterfaces:
     ssh:
       local:
         launcher: "ssh.py"
-        args: ["192.168.0.76","22","root"]
+        args: ["192.168.0.76","22","ubuntu-compute"]
       remote:
         launcher: "ssh.py"
-        args: ["85.191.70.197","8010","root"]
+        args: ["85.191.70.197","8010","ubuntu-compute"]
   win11-1060:
     parsec:
       remote:

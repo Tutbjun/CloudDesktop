@@ -3,40 +3,35 @@ import tkinter
 import tkinter.ttk as ttk
 import os
 import subprocess
-#import a config file with pikvm ip and port, and the server ip and port and the virtual machine ip and port
-import yaml
-from getpass import getpass
-#from cryptography.fernet import Fernet
-#import numpy as np
 import time
-#import rsa
-import hashlib
-import sys
+
+import yaml
+
+import passwdcheck
+passwd = ""
+token = ""
+def readTokenFile():
+    with open("token.txt") as f:
+        file = f.readlines()
+        token = file[0].replace("\n", "")
+        age = float(file[1])
+        if time.time() - age > 43200:#12hours
+            passwd = passwdcheck.get()
+            passwdcheck.get_token(passwd)
+    return token
+if "token.txt" in os.listdir():
+    token = readTokenFile()
+else:
+    passwd = passwdcheck.get()
+    #get token
+    passwdcheck.get_token(passwd)
+    token = readTokenFile()
+    passwd = ""
 
 verbose = False
 
 #sanitycheck password
-args = sys.argv[1:]
-if len(args) > 0:
-    if args[0].lower() != "none":
-        passwd = args[0]
-    else:
-        passwd = None
-else:
-    passwd = None
-if passwd is None: passwd = getpass("Enter password: ")
 
-hash_object = hashlib.sha256()
-hash_object.update(passwd.encode())
-encPasswd = hash_object.hexdigest().encode()
-with open("passwrdref.txt", "rb") as f:
-    refPasswds = f.readlines()
-refPasswds = [passwd.replace(b"\n", b"") for passwd in refPasswds]
-
-if encPasswd not in refPasswds:
-    print("Wrong password")
-    time.sleep(5)
-    raise Exception("Wrong password")
 
 
 
@@ -113,6 +108,7 @@ class ServerInterface(tkinter.Tk):
             else:
                 #password passon
                 value['args'].append(f"password {passwd}")
+                value['args'].append(f"token {token}")
                 self.subButtonAttributes.append((value["launcher"], value["args"]))
                 i = len(self.subButtonAttributes)-1
                 button = ttk.Button(frame, text=key, command=lambda index=i: self.launch(*self.subButtonAttributes[index]))

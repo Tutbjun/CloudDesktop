@@ -14,12 +14,24 @@ import socket
 #TODO: ping computer to see if on/off
 
 args = sys.argv[1:]
-print(args)
-state = args[0]#example: 1_on
-onoff = state.split("_")[1]
-port = state.split("_")[0]
-doruntel = args[1]#example: 1
-passwd = " ".join(args).split(" password ")[1]
+if len(args) > 0:
+    print(args)
+    state = args[0]#example: 1_on
+    onoff = state.split("_")[1]
+    port = state.split("_")[0]
+    doruntel = args[1]#example: 1
+    passwd = " ".join(args).split(" password ")[1].split(" ")[0]
+    token = " ".join(args).split(" token ")[1].split(" ")[0]
+else:
+    passwd = ""
+    token = ""
+    onoff = "on"
+    port = "0"
+    state = "0_on"
+    doruntel = "0"
+    
+#print(args)
+#print(passwd)
 
 #first ssh into the server and run the following command to get the secret
 #passwd = getpass("Enter password: ")
@@ -34,19 +46,32 @@ user = "admin"
 secret = ""  # Can be found in /etc/kvmd/totp.secret
 ip = "85.191.70.197:8009"
 
-header = {'user': user, 'passwd': passwd}
+#header = {'user': user, 'Authorization': '{}'.format(passwd)}
+data = {'user': user}
+if passwd != "":
+    data['passwd'] = passwd
+header = {}
+if token != "":
+    header['Cookie'] = f"auth_token={token}"
+#'passwd': passwd}
 requests.Session().debug = True
-response = requests.post(f"https://{ip}/api/auth/login", data=header, verify=False)
+"""response = requests.post(f"https://{ip}/api/auth/login", data=data, verify=False, headers=header)
 print(response.text)
 for key, value in response.headers.items():
-    print(f"{key}: {value}")
+    print(f"{key}: {value}")"""
 
-token = response.headers['Set-Cookie'].split(";")[0].split("=")[1]
+"""token = response.headers['Set-Cookie'].split(";")[0].split("=")[1]
 header = {
     "Authorization": f"access_token {token}",
-}
+}"""
 
-response = requests.get(f"https://{ip}/api/auth/check", verify=False, auth=HTTPBasicAuth(user, passwd))
+if token == "":
+    auth = HTTPBasicAuth(user, passwd)
+    header = {}
+else:
+    auth = None
+
+response = requests.get(f"https://{ip}/api/auth/check", verify=False, auth=auth, headers=header)
 print(response.text)
 for key, value in response.headers.items():
     print(f"{key}: {value}")
@@ -57,7 +82,7 @@ for key, value in response.headers.items():
     print(f"{key}: {value}")"""
 
 
-response = requests.get(f"https://{ip}/api/atx", verify=False, auth=HTTPBasicAuth(user, passwd))
+response = requests.get(f"https://{ip}/api/atx", verify=False, auth=auth, headers=header)
 print(response.text)
 for key, value in response.headers.items():
     print(f"{key}: {value}")
@@ -65,9 +90,9 @@ for key, value in response.headers.items():
 
 #POST https://<pikvm-ip>/api/atx/power?action=on
 if onoff == "off":
-    response = requests.post(f"https://{ip}/api/atx/power?action={onoff}", verify=False, auth=HTTPBasicAuth(user, passwd))
+    response = requests.post(f"https://{ip}/api/atx/power?action={onoff}", verify=False, auth=auth, headers=header)
 else:
-    response = requests.post(f"https://{ip}/api/atx/click?button=power", verify=False, auth=HTTPBasicAuth(user, passwd))
+    response = requests.post(f"https://{ip}/api/atx/click?button=power", verify=False, auth=auth, headers=header)
 print(response.text)
 for key, value in response.headers.items():
     print(f"{key}: {value}")
@@ -93,9 +118,9 @@ switch = False
 while not switch:
     if onoff == "on":
         break
-    response = requests.get(f"https://{ip}/api/atx", verify=False, auth=HTTPBasicAuth(user, passwd))
+    response = requests.get(f"https://{ip}/api/atx", verify=False, auth=auth, headers=header)
     print(response.text)
-    response = requests.get(f"https://{ip}/api/hid", verify=False, auth=HTTPBasicAuth(user, passwd))
+    response = requests.get(f"https://{ip}/api/hid", verify=False, auth=auth, headers=header)
     print(response.text)
     for key, value in response.headers.items():
         print(f"{key}: {value}")

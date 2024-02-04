@@ -32,13 +32,18 @@ if len(flags) > 3:
     #so find the quatation marked part
     flag = " ".join(flags[3:])
     print(flag)
-    try:
+    phrase = flag.split(' password')[0]#! new
+    url += f' "{phrase}"'
+    """try:
         phrase, password = flag.split(' password')[0], flag.split(' password ')[1]
         url += f' "{phrase}"'
     except:
-        password = flag.split('password ')[1]
+        try:
+            password = flag.split('password ')[1]
+        except:
+            password = ''"""
     #flag = flag.split(' ')[0]
-    print(password)
+    #print(password)
 
 print(url)
 cmd.append(url) 
@@ -52,9 +57,10 @@ pop.stdin.flush()
 pop.wait()
 print(pop.returncode, pop.communicate())"""
 print(cmd)
-child = pexpect.spawn(" ".join(cmd))
-child.expect(f"{flags[2]}@85.191.70.197's password:")
+os.system(" ".join(cmd))
+#child = pexpect.spawn(" ".join(cmd))
+#child.expect(f"{flags[2]}@85.191.70.197's password:")
 #time.sleep(3)
-child.sendline(password)
+#child.sendline(password)
 #wait for the command to finish
-child.expect(pexpect.EOF)
+#child.expect(pexpect.EOF)
