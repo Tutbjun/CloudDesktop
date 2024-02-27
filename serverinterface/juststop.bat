@@ -1,0 +1,1 @@
+wsl python3 juststop.py

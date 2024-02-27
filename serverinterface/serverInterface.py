@@ -8,6 +8,9 @@ import time
 import yaml
 
 import passwdcheck
+
+passWordAge = 43200#12hours
+
 passwd = ""
 token = ""
 def readTokenFile():
@@ -15,9 +18,10 @@ def readTokenFile():
         file = f.readlines()
         token = file[0].replace("\n", "")
         age = float(file[1])
-        if time.time() - age > 43200:#12hours
-            passwd = passwdcheck.get()
-            passwdcheck.get_token(passwd)
+        if passWordAge != None:
+            if time.time() - age > passWordAge:#12hours
+                passwd = passwdcheck.get()
+                passwdcheck.get_token(passwd)
     return token
 if "token.txt" in os.listdir():
     token = readTokenFile()
